@@ -1,0 +1,129 @@
+:root {
+    --prymage-dark: #1a2a3a;
+    --prymage-blue: #3498db;
+    --prymage-accent: #2ecc71;
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--prymage-dark);
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 550px;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: transform 0.3s ease;
+}
+
+h2 {
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--prymage-dark);
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: #5d6d7e;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 25px;
+    border: 2px solid #e1e8ed;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: var(--prymage-blue);
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+}
+
+input[type="submit"] {
+    background: var(--prymage-blue);
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+input[type="submit"]:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(41, 128, 185, 0.3);
+}
+
+/* Updated Loader Styling */
+.loader-container {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+}
+
+.loader-large {
+    border: 5px solid rgba(52, 152, 219, 0.1);
+    border-top: 5px solid var(--prymage-blue);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 1.2s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
+}
+
+.loader-inner {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    border: 5px solid rgba(46, 204, 113, 0.1);
+    border-bottom: 5px solid var(--prymage-accent);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spinBack 1.8s linear infinite;
+}
+
+/* Floating Brand Objects */
+.floating-item {
+    position: fixed;
+    font-size: 50px;
+    opacity: 0.15;
+    z-index: -1;
+    filter: grayscale(100%);
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes spinBack { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
+@keyframes float {
+    0% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(30px, -50px) rotate(15deg); }
+    100% { transform: translate(0,0) rotate(0deg); }
+}

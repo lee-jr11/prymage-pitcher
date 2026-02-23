@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prymage Proposal Engine</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="floating-item" style="top: 10%; left: 10%; animation: float 10s infinite;">🏢</div>
+    <div class="floating-item" style="top: 70%; left: 80%; animation: float 12s infinite reverse;">📊</div>
+    <div class="floating-item" style="bottom: 10%; left: 15%; animation: float 8s infinite;">🤝</div>
+    <div class="floating-item" style="top: 20%; right: 15%; animation: float 15s infinite;">💡</div>
+
+    <div class="container" id="form-container">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 style="color: #3498db; margin: 0; font-size: 1.5rem;">PRYMAGE</h1>
+            <p style="margin: 0; font-size: 0.8rem; color: #7f8c8d; letter-spacing: 2px; text-transform: uppercase;">Consultancy Ltd.</p>
+        </div>
+        
+        <h2>Proposal Generator</h2>
+        
+        <form id="pitch-form" action="/generate" method="POST" onsubmit="showLoading()">
+            <label for="client">Client Name</label>
+            <input type="text" id="client" name="client" placeholder="e.g. Hades FC" required>
+
+            <label for="industry">Industry</label>
+            <input type="text" id="industry" name="industry" placeholder="e.g. Sports Management" required>
+
+            <label for="problem">Target Challenge</label>
+            <input type="text" id="problem" name="problem" placeholder="e.g. Messy payroll" required>
+
+            <label for="software">Solution Architecture</label>
+            <select id="software" name="software">
+                <option value="ERPNext">ERPNext</option>
+                <option value="Odoo">Odoo</option>
+                <option value="Tally">Tally</option>
+                <option value="QuickBooks">QuickBooks</option>
+            </select>
+
+            <label for="tone">Proposal Tone</label>
+            <select id="tone" name="tone">
+                <option value="Professional and highly formal">Formal</option>
+                <option value="Direct, confident, and straight to the point">Direct</option>
+                <option value="Warm, friendly, and conversational">Friendly</option>
+                <option value="Urgent, highlighting immediate ROI">Urgent</option>
+            </select>
+
+            <input type="submit" value="Draft Proposal">
+        </form>
+    </div>
+
+    <div id="loading-container" style="display: none; text-align: center;">
+        <div class="loader-container">
+            <div class="loader-large"></div>
+            <div class="loader-inner"></div>
+        </div>
+        <h2 style="color: #1a2a3a; margin-top: 30px;">Strategic Analysis in Progress...</h2>
+        <p style="color: #5d6d7e;">Prymage AI is optimizing the solution framework.</p>
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('loading-container').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
