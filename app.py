@@ -1,21 +1,48 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
 
 app = Flask(__name__)
+# 1. Grab the security keys from the vault
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
+APP_PASSWORD = os.getenv("APP_PASSWORD")
 
 secure_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=secure_key)
 
+# 2. The Login Route
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form.get('password') == APP_PASSWORD:
+            session['logged_in'] = True
+            return redirect(url_for('home'))
+        else:
+            error = "Invalid credentials. Access denied."
+    return render_template('login.html', error=error)
+
+# 3. The Logout Route
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('login'))
+
+# 4. Protect the Main Pages
 @app.route('/')
 def home():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
     return render_template('index.html')
 
 @app.route('/generate', methods=['POST'])
 def generate_pitch():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+        
     client_name = request.form.get('client', 'Client')
     industry = request.form.get('industry', 'Enterprise')
     problem = request.form.get('problem', 'Operational Efficiency')
@@ -76,8 +103,8 @@ def generate_pitch():
             
             <div style="display: flex; gap: 15px; margin-top: 20px;">
                 <button onclick="copyPitch()" id="copy-btn" style="flex: 2; padding: 16px; cursor: pointer; background: linear-gradient(to bottom, #3498db, #2980b9); color: white; border: 1px solid #2980b9; border-radius: 8px; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: all 0.3s;">Copy to Clipboard</button>
-                <a href="/" style="flex: 1; text-decoration: none;">
-                    <button style="width: 100%; height: 100%; padding: 16px; cursor: pointer; background: transparent; color: #00d1b2; border: 2px solid #00d1b2; border-radius: 8px; font-weight: 700; font-size: 1rem; transition: all 0.3s;">Back</button>
+                <a href="/logout" style="flex: 1; text-decoration: none;">
+                    <button style="width: 100%; height: 100%; padding: 16px; cursor: pointer; background: rgba(255, 107, 107, 0.1); color: #ff6b6b; border: 1px solid #ff6b6b; border-radius: 8px; font-weight: 700; font-size: 1rem; transition: all 0.3s;">Logout</button>
                 </a>
             </div>
             
