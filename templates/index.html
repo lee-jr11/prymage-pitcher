@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prymage Proposal Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        
+        <h1>PRYMAGE</h1>
+        <h2>Consultancy Ltd.</h2>
+        
+        <form action="/generate" method="POST">
+            <label for="client">Client Name</label>
+            <input type="text" id="client" name="client" placeholder="e.g. Hades FC" required>
+
+            <label for="industry">Industry</label>
+            <input type="text" id="industry" name="industry" placeholder="e.g. Sports Management" required>
+
+            <label for="problem">Target Challenge</label>
+            <input type="text" id="problem" name="problem" placeholder="e.g. Messy payroll" required>
+
+            <label for="software">Solution Architecture</label>
+            <select id="software" name="software">
+                <option value="ERPNext">ERPNext</option>
+                <option value="Custom Enterprise Software">Custom Enterprise Software</option>
+                <option value="Cloud Migration">Cloud Migration</option>
+                <option value="Data Analytics Platform">Data Analytics Platform</option>
+            </select>
+
+            <label for="tone">Proposal Tone</label>
+            <select id="tone" name="tone">
+                <option value="Formal & Executive">Formal & Executive</option>
+                <option value="Persuasive & Visionary">Persuasive & Visionary</option>
+                <option value="Direct & Action-Oriented">Direct & Action-Oriented</option>
+            </select>
+
+            <button type="submit">Draft Proposal</button>
+        </form>
+    </div>
+</body>
+</html>
